@@ -43,10 +43,10 @@
 	-->
 
 			<h2>Overview</h2>
-			I implemented rasteration of triangles, supersampling for the sake of antialiasing, transform algortihms to move and skew objects in screen space, different color sampling and texture methods, and, finally, multiple pixel sampling algortihms for rendering texture.
+			I implemented rasterization of triangles, supersampling for the sake of antialiasing, transform algorithms to move and skew objects in screen space, different color sampling and texture methods, and, finally, multiple pixel sampling algortihms for rendering texture.
 
 			<h2>Task 1: Drawing Single-Color Triangles</h2>
-			For rasterization of triangles, I iterated over all possible x,y tuples in the bounding box, then checked whether or not any of those points exist inside the triangle described in the method signature using the 3 line test equations. I had an issue rendering test6.svg because I forgot to account for the winding order of the given vertices. I added a swap statement to make sure the winding order was always CCW. My algorithm is the same as the described one in class that checks each sample within the bounding box with no optimizations.
+			For the rasterization of triangles, I iterated over all possible x,y tuples in the bounding box, then checked whether or not any of those points exist inside the triangle described in the method signature using the 3-line test equations. I had an issue rendering test6.svg because I forgot to account for the winding order of the given vertices. I added a swap statement to make sure the winding order was always CCW. My algorithm is the same as the described one in class that checks each sample within the bounding box with no optimizations.
 
 			<div style="display: flex; flex-direction: column; align-items: center;">
 				<table style="width: 100%; text-align: center; border-collapse: collapse;">
@@ -60,7 +60,7 @@
 			</div>
 
 			<h2>Task 2: Antialiasing by Supersampling</h2>
-			For supersampling, I simply iterated further over each bounding box coordinate per the sample rate and increased the size of the sample_buffer according to the sample rate as well. Then, I average the color based on each sample within the actual bounding box pizel and write that color to the actual buffer. This makes the edges of our rendered objects look much more smooth because instead of a binary off and on, there can be a gradient of color depending on how much of the reference image is contained in the pixel (no jaggies!!). The only thing I had to change about my rasterization pipeline was instead of writing directly to the pixel bufer, I had to write to the sample buffer first, average based on sample size, then write those values to the pixel buffer.
+			For supersampling, I simply iterated further over each bounding box coordinate per the sample rate and increased the size of the sample_buffer according to the sample rate as well. Then, I average the color based on each sample within the actual bounding box pixel and write that color to the actual buffer. This makes the edges of our rendered objects look much smoother because instead of a binary off and on, there can be a gradient of color depending on how much of the reference image is contained in the pixel (no jaggies!!). The only thing I had to change about my rasterization pipeline was instead of writing directly to the pixel buffer, I had to write to the sample buffer first, average based on sample size, and then write those values to the pixel buffer.
 
 			<div style="display: flex; flex-direction: column; align-items: center;">
 				<table style="width: 100%; text-align: center; border-collapse: collapse;">
@@ -82,7 +82,7 @@
 			</div>
 
 			<h2>Task 3: Transforms</h2>
-			I tried to make my cubeman do the Home Alone scream, but with no mouth haha. I had to rotate both sections of each arm by 90 so that they pointed upwards. Then I translated both sections so they were closer its body. Finally, I set each top section of the arm to rotate another 45/-45 degrees so it looks like cubeman's elbows are bent.
+			I tried to make my cubeman do the Home Alone scream, but with no mouth haha. I had to rotate both sections of each arm by 90 so that they pointed upwards. Then I translated both sections so they were closer to its body. Finally, I set each top section of the arm to rotate another 45/-45 degrees so it looks like the cubeman's elbows are bent.
 
 			<div style="display: flex; flex-direction: column; align-items: center;">
 				<table style="width: 100%; text-align: center; border-collapse: collapse;">
