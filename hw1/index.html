@@ -145,31 +145,8 @@
 
 			<h2>Task 6: "Level Sampling" with mipmaps for texture mapping</h2>
 			Level sampling is the methodology in which you provide differing sample frequencies depending on how the texture space maps onto the screen space. If, for example, a large area in texture space maps to a small area in pixel space (shrunken area), then a high sample frequency is not needed and computational costs can be saved and diverted. In the reverse case, more sampling would be beneficial for stretched out textures because of their large area of pixel space they occupy. Using mipmaps to estimate a "level" of area stretching, I can now adjust the sampling rate and antialiasing power depending on the texture to pixel area ratio. The higher the level, the more downsampled a texture is. THe higher the number of samples per pixel, the better it is at antialiasing, but the computation time and memory cost is much higher. Between nearest and bilinear sampling, nearest is relatively faster, but its antialiasing power is very limited at a low sample rate.
-			
-			<div style="display: flex; flex-direction: column; align-items: center;">
-				<table style="width: 100%; text-align: center; border-collapse: collapse;">
-					<tr>
-						<td style="text-align: center;">
-							<img src="images/near1.png" width="400px" />
-							<figcaption>nearest sampling, sample rate: 1</figcaption>
-						</td>
-						<td style="text-align: center;">
-							<img src="images/near16.png" width="400px" />
-							<figcaption>nearest sampling, sample rate: 1</figcaption>
-						</td>
-					</tr>
-					<tr>
-						<td style="text-align: center;">
-							<img src="images/bi1.png" width="400px" />
-							<figcaption>bilinear sampling, sample rate: 1</figcaption>
-						</td>
-						<td style="text-align: center;">
-							<img src="images/bi16.png" width="400px" />
-							<figcaption>bilinear sampling, sample rate: 16</figcaption>
-						</td>
-					</tr>
-				</table>
-			</div>
+			<be />
+			Unfortunately, I could not get my other levels to function as desired and, as I had run out of time, had to give up on my final implementation of them.
 			
 		</div>
 	</body>
