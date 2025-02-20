@@ -27,86 +27,159 @@
 	</head>
 	<body>
 		<div class="container">
-		<h1>CS184/284A Spring 2025 Homework 1 Write-Up</h1>
-		<div style="text-align: center;">Names: </div>
+			<h1>CS184/284A Spring 2025 Homework 1 Write-Up</h1>
+			<div style="text-align: center;">Names: </div>
 
-		<br>
+			<br>
 
-		Link to webpage: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
-		
-		<br>
+			Link to webpage: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
 
-		Link to GitHub repository: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
+			<br>
 
-		<figure>
-			<img src="lion.jpg" alt="Lion" style="width:50%"/>
-			<figcaption>You can add images with captions!</figcaption>
-		</figure>
+			Link to GitHub repository: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
 
-		<!--
-		We've already added one heading per task, to make your write-up as navigable when grading. Please fit your write-up within these sections!
-		-->
+			<figure>
+				<img src="images/image1.png" alt="Lion" style="width:50%" />
+				<figcaption>You can add images with captions!</figcaption>
+			</figure>
 
-		<h2>Overview</h2>
-		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
+			<!--
+	We've already added one heading per task, to make your write-up as navigable when grading. Please fit your write-up within these sections!
+	-->
 
-		<h2>Task 1: Drawing Single-Color Triangles</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			<h2>Overview</h2>
+			I implemented rasteration of triangles, supersampling for the sake of antialiasing, transform algortihms to move and skew objects in screen space, different color sampling and texture methods, and, finally, multiple pixel sampling algortihms for rendering texture.
 
-		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
-		<div style="display: flex; flex-direction: column; align-items: center;">
-			<table style="width: 100%; text-align: center; border-collapse: collapse;">
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="lion.jpg" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-				<td style="text-align: center;">
-				  <img src="lion.jpg" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-			  </tr>
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="lion.jpg" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-				<td style="text-align: center;">
-				  <img src="lion.jpg" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-			  </tr>
-			</table>
-		</div>
-		
-		<h2>Task 2: Antialiasing by Supersampling</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			<h2>Task 1: Drawing Single-Color Triangles</h2>
+			For rasterization of triangles, I iterated over all possible x,y tuples in the bounding box, then checked whether or not any of those points exist inside the triangle described in the method signature using the 3 line test equations. I had an issue rendering test6.svg because I forgot to account for the winding order of the given vertices. I added a swap statement to make sure the winding order was always CCW. My algorithm is the same as the described one in class that checks each sample within the bounding box with no optimizations.
 
-		<h2>Task 3: Transforms</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			<div style="display: flex; flex-direction: column; align-items: center;">
+				<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					<tr>
+						<td style="text-align: center;">
+							<img src="images/tes4.png" width="400px" />
+							<figcaption>basic/test4.svg</figcaption>
+						</td>
+					</tr>
+				</table>
+			</div>
 
-		<h2>Task 4: Barycentric coordinates</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			<h2>Task 2: Antialiasing by Supersampling</h2>
+			For supersampling, I simply iterated further over each bounding box coordinate per the sample rate and increased the size of the sample_buffer according to the sample rate as well. Then, I average the color based on each sample within the actual bounding box pizel and write that color to the actual buffer. This makes the edges of our rendered objects look much more smooth because instead of a binary off and on, there can be a gradient of color depending on how much of the reference image is contained in the pixel (no jaggies!!). The only thing I had to change about my rasterization pipeline was instead of writing directly to the pixel bufer, I had to write to the sample buffer first, average based on sample size, then write those values to the pixel buffer.
 
-		<h2>Task 5: "Pixel sampling" for texture mapping</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			<div style="display: flex; flex-direction: column; align-items: center;">
+				<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					<tr>
+						<td style="text-align: center;">
+							<img src="images/rate1.png" width="400px" />
+							<figcaption>sample rate: 1</figcaption>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: center;">
+							<img src="images/rate4.png" width="400px" />
+							<figcaption>sample rate: 4</figcaption>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: center;">
+							<img src="images/rate16.png" width="400px" />
+							<figcaption>sample rate: 16</figcaption>
+						</td>
+					</tr>
+				</table>
+			</div>
 
-		<h2>Task 6: "Level Sampling" with mipmaps for texture mapping</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			<h2>Task 3: Transforms</h2>
+			I tried to make my cubeman do the Home Alone scream, but with no mouth haha. I had to rotate both sections of each arm by 90 so that they pointed upwards. Then I translated both sections so they were closer its body. Finally, I set each top section of the arm to rotate another 45/-45 degrees so it looks like cubeman's elbows are bent.
 
-		<h2>(Optional) Task 7: Extra Credit - Draw Something Creative!</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			<div style="display: flex; flex-direction: column; align-items: center;">
+				<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					<tr>
+						<td style="text-align: center;">
+							<img src="images/home.png" width="400px" />
+							<figcaption>Home Alone scream. . . kinda</figcaption>
+						</td>
+					</tr>
+				</table>
+			</div>
 
-		<h2>Additional Notes (please remove)</h2>
-		<ul>
-			<li>You can also add code if you'd like as so: <code>code code code</code></li>
-			<li>If you'd like to add math equations, 
-				<ul>
-					<li>You can write inline equations like so: \( a^2 + b^2 = c^2 \)</li>
-					<li>You can write display equations like so: \[ a^2 + b^2 = c^2 \]</li>
-				</ul>
-			</li>
-		</ul>
+			<h2>Task 4: Barycentric coordinates</h2>
+			Using barycentric coordinates, you can calculate color values based on distance from a set of vertices. A point closer to a vertex has more of that color value than one further away. The image below (left) shows an example of three vertices each with colors red, green, and blue. As points get further toward the middle of the triangle, their colors start to mix with values of the other vertices and a extravagant gradient is born.
+
+			<div style="display: flex; flex-direction: column; align-items: center;">
+				<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					<tr>
+						<td style="text-align: center;">
+							<img src="images/triangle.png" width="400px" />
+							<figcaption>barycentric cords example</figcaption>
+						</td>
+						<td style="text-align: center;">
+							<img src="images/circle.png" width="400px" />
+							<figcaption>test7.svg</figcaption>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<h2>Task 5: "Pixel sampling" for texture mapping</h2>
+			Pixel sampling is the process of mapping the saved textures (texture space) onto actual pixels (screen space). Using the barycentric coordinates implemented in Task 4, I calculated the corresponding uv vector to plot it in texture space. Then, I found the texel by either grabbing the nearest texel in texture space to the sample point (nearest sampling) or by checking the 4 neighbors closest to the sample point and taking the linear interpolation between the horizontal and vertical directions.
+			<br />
+			In the following 4 images, it's clear that the bilinear sampling results in a much better rendering of the given sample. When the sampling rate is low, the differences between the two sampling methods are more drastic. If working with very large sample rates, however, using a nearest sampling algortihm might save a lot of time and resources while producing a similar result as bilinear.
+
+			<div style="display: flex; flex-direction: column; align-items: center;">
+				<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					<tr>
+						<td style="text-align: center;">
+							<img src="images/near1.png" width="400px" />
+							<figcaption>nearest sampling, sample rate: 1</figcaption>
+						</td>
+						<td style="text-align: center;">
+							<img src="images/near16.png" width="400px" />
+							<figcaption>nearest sampling, sample rate: 1</figcaption>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: center;">
+							<img src="images/bi1.png" width="400px" />
+							<figcaption>bilinear sampling, sample rate: 1</figcaption>
+						</td>
+						<td style="text-align: center;">
+							<img src="images/bi16.png" width="400px" />
+							<figcaption>bilinear sampling, sample rate: 16</figcaption>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<h2>Task 6: "Level Sampling" with mipmaps for texture mapping</h2>
+			Level sampling is the methodology in which you provide differing sample frequencies depending on how the texture space maps onto the screen space. If, for example, a large area in texture space maps to a small area in pixel space (shrunken area), then a high sample frequency is not needed and computational costs can be saved and diverted. In the reverse case, more sampling would be beneficial for stretched out textures because of their large area of pixel space they occupy. Using mipmaps to estimate a "level" of area stretching, I can now adjust the sampling rate and antialiasing power depending on the texture to pixel area ratio. The higher the level, the more downsampled a texture is. THe higher the number of samples per pixel, the better it is at antialiasing, but the computation time and memory cost is much higher. Between nearest and bilinear sampling, nearest is relatively faster, but its antialiasing power is very limited at a low sample rate.
+			
+			<div style="display: flex; flex-direction: column; align-items: center;">
+				<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					<tr>
+						<td style="text-align: center;">
+							<img src="images/near1.png" width="400px" />
+							<figcaption>nearest sampling, sample rate: 1</figcaption>
+						</td>
+						<td style="text-align: center;">
+							<img src="images/near16.png" width="400px" />
+							<figcaption>nearest sampling, sample rate: 1</figcaption>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: center;">
+							<img src="images/bi1.png" width="400px" />
+							<figcaption>bilinear sampling, sample rate: 1</figcaption>
+						</td>
+						<td style="text-align: center;">
+							<img src="images/bi16.png" width="400px" />
+							<figcaption>bilinear sampling, sample rate: 16</figcaption>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
 		</div>
 	</body>
 </html>
