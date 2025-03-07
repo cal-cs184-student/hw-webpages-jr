@@ -27,90 +27,186 @@
 	</head>
 	<body>
 		<div class="container">
-		<h1>CS184/284A Spring 2025 Homework 2 Write-Up</h1>
-		<div style="text-align: center;">Names: </div>
+			<h1>CS184/284A Spring 2025 Homework 2 Write-Up</h1>
+			<div style="text-align: center;">Names: Jaymes Garbe</div>
 
-		<br>
+			<br>
 
-		Link to webpage: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
+			Link to webpage:<a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
 
-		<br>
-		
-		Link to GitHub repository: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
+			<br>
 
-		<figure>
-			<img src="teapot.png" alt="Teapot" style="width:50%"/>
-			<figcaption>You can add images with captions!</figcaption>
-		</figure>
+			Link to GitHub repository: <a href="https://cal-cs184-student.github.io/hw-webpages-jr/">cal-cs184-student.github.io/hw-webpages-jr</a>
 
-		<!--
-		We've already added one heading per part, to make your write-up as navigable when grading. Please fit your write-up within these sections!
-		-->
+			<!--
+	We've already added one heading per part, to make your write-up as navigable when grading. Please fit your write-up within these sections!
+	-->
 
-		<h2>Overview</h2>
-		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
+			<h2>Overview</h2>
+			I implemented Bexier curves and surfaces, shading using normalized vectors, and multiple methods of transforms on meshes to allow for subdivision, splitting, and swapping of triange meshes. Through these methods, I better understand the way a geometric mesh is rendered and optimized and how surfaces as a whole are modeled.
 
-		<h2>Section I: Bezier Curves and Surfaces</h2>
+			<h2>Section I: Bezier Curves and Surfaces</h2>
 
-		<h3>Part 1: Bezier curves with 1D de Casteljau subdivision</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			<h3>Part 1: Bezier curves with 1D de Casteljau subdivision</h3>
+			De Casteljau's algortihm evaluates Bezier curves by linearly interpolating from a given set of points and recursively evaluating subdivisons of the points until it becomes a singularity (single point). For just a single step, we use the given equation (t * points[i] + (1 - t) * points[i + 1]) for a given n control points and come up with a list of n-1 converted points.
 
-		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
-		<div style="display: flex; flex-direction: column; align-items: center;">
-			<table style="width: 100%; text-align: center; border-collapse: collapse;">
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="teapot.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-				<td style="text-align: center;">
-				  <img src="teapot.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-			  </tr>
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="teapot.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-				<td style="text-align: center;">
-				  <img src="teapot.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-			  </tr>
-			</table>
-		</div>
+			<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
+			<div style="display: flex; flex-direction: column; align-items: center;">
+				<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					<tr>
+						<td style="text-align: center;">
+							<img src="images/s0.png" width="400px" />
+							<figcaption>Level 0</figcaption>
+						</td>
+						<td style="text-align: center;">
+							<img src="images/s1.png" width="400px" />
+							<figcaption>Level 1</figcaption>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: center;">
+							<img src="images/s2.png" width="400px" />
+							<figcaption>Level 2</figcaption>
+						</td>
+						<td style="text-align: center;">
+							<img src="images/s3.png" width="400px" />
+							<figcaption>Level 3</figcaption>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: center;">
+							<img src="images/s4.png" width="400px" />
+							<figcaption>Level 4</figcaption>
+						</td>
+						<td style="text-align: center;">
+							<img src="images/s5.png" width="400px" />
+							<figcaption>Altered Curve</figcaption>
+						</td>
+					</tr>
+				</table>
+			</div>
 
-		<h3>Part 2: Bezier surfaces with separable 1D de Casteljau</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			<h3>Part 2: Bezier surfaces with separable 1D de Casteljau</h3>
+			Converting de Casteljau's algorithm from Bezier curves to Bezier surfaces was suprizingly simple. Instead of n control points, a grid of n x n points is used instead to creat a surface. Luckily, when I changed my control point objects from 2D vector types into 3D vector types, the same exact code and algortihm from the Bezier curve problem worked for evaluating a single step! Next, I had to create an algorith to fully complete de Castejau's algorithm (instead of just completing one step). This was also relatively easy, just repeatedly call our step function until the list of control points converges to one point. However, the evaluate1D function only evaluates 1 dimension, so by repeatingly calling evaluate1D across each row of the n x n grid, we come up with a completed Bezier surface!'
 
-		<h2>Section II: Triangle Meshes and Half-Edge Data Structure</h2>
+			<div style="display: flex; flex-direction: column; align-items: center;">
+				<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					<tr>
+						<td style="text-align: center;">
+							<img src="images/pot.png" width="400px" />
+							<figcaption></figcaption>
+						</td>
+					</tr>
+				</table>
+			</div>
 
-		<h3>Part 3: Area-weighted vertex normals</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			<h2>Section II: Triangle Meshes and Half-Edge Data Structure</h2>
 
-		<h3>Part 4: Edge flip</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			<h3>Part 3: Area-weighted vertex normals</h3>
+			I implemented the area-weighted vertex normals by iterating through all the faces touching to a vertex using half-edges. For each face, I calculated its normal vector using the cross product of two edge vectors. Then, I weighted this normal by the area of the face (half the magnitude of the cross product) and normalized the resulting vector to produce a unit vector representing the area-weighted vertex normal.
 
-		<h3>Part 5: Edge split</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			<div style="display: flex; flex-direction: column; align-items: center;">
+				<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					<tr>
+						<td style="text-align: center;">
+							<img src="images/rough.png" width="400px" />
+							<figcaption>Without vertex normals</figcaption>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: center;">
+							<img src="images/smooth.png" width="400px" />
+							<figcaption>With vertex normals</figcaption>
+						</td>
+					</tr>
+				</table>
+			</div>
 
-		<h3>Part 6: Loop subdivision for mesh upsampling</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			<h3>Part 4: Edge flip</h3>
+			Using the HalfedgeEdgeOpImplementationGuide, I first collected all the needed halfedges of the two triangles, all the verticies, edges, and faces. Then, just simply reassigned every next, twin, vertex, edge, and face of every halfedge, and reassigned the halfedges of every face, vertex, and edge too. I was running into some edge cases, so I added isBoundary checks at the beginning of my function and before reassignment as well. After that, everything was working great and I had no further debugging toils!
 
-		<h2>(Optional) Section III: Potential Extra Credit - Art Competition: Model something Creative</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			<div style="display: flex; flex-direction: column; align-items: center;">
+				<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					<tr>
+						<td style="text-align: center;">
+							<img src="images/rough.png" width="400px" />
+							<figcaption>No flips</figcaption>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: center;">
+							<img src="images/flipped.png" width="400px" />
+							<figcaption>Flipped a bit</figcaption>
+						</td>
+					</tr>
+				</table>
+			</div>
 
-		<h2>Additional Notes (please remove)</h2>
-		<ul>
-			<li>You can also add code if you'd like as so: <code>code code code</code></li>
-			<li>If you'd like to add math equations, 
-				<ul>
-					<li>You can write inline equations like so: \( a^2 + b^2 = c^2 \)</li>
-					<li>You can write display equations like so: \[ a^2 + b^2 = c^2 \]</li>
-				</ul>
-			</li>
-		</ul>
+			<h3>Part 5: Edge split</h3>
+			I took inspiration from HalfedgeEdgeOpImplementationGuide.pdf that I used for the last problem and drew a before and after diagram using the same exactly letter-and-number system that the original diagram does, except in the after instead of flipping the middle edge, instead I split the traingle and added a new vertex, two new faces, three new edges, and 6 new halfedges. I'm just now realizing that I didn't boundary check for this function, I wonder why it wasn't necessary this time. Anyways, I learned that there is a helper function made to set next, twin, edge, etc for each halfedge instead of doing it all manually like I did with flipEdge. I utilized that function (setNeighbors) for all the halfedges and then set the halfedges of all the new and old edges, faces, and verticies similarly to how I did in flipEdge. I ran into an isue that the returned vertex (v4 in my case) had no position attribute set that would be used in other calculations after splitEdge is called. I simply tacked on a line that derives the midpoint of the v2 and v3 vertices to find the position of the v4 vertex. After that debugging, everything seemed to work perfectly!
+
+			<div style="display: flex; flex-direction: column; align-items: center;">
+				<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					<tr>
+						<td style="text-align: center;">
+							<img src="images/rough.png" width="400px" />
+							<figcaption>No splits or flips</figcaption>
+						</td>
+						<td style="text-align: center;">
+							<img src="images/split.png" width="400px" />
+							<figcaption>Splits</figcaption>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: center;">
+							<img src="images/rough.png" width="400px" />
+							<figcaption>No splits or flips</figcaption>
+						</td>
+						<td style="text-align: center;">
+							<img src="images/s&f.png" width="400px" />
+							<figcaption>Splits and flips</figcaption>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<h3>Part 6: Loop subdivision for mesh upsampling</h3>
+			I broke my code up into separate loops and initiators based on the numbered instructions in the comments of the code. First, I computed the new positions of old vertex using the given formula ((1.0 - n * u) * v->position + u * sum) where v->position is the original position, sum is the original neighbor position sum, u is the vertex degree, and n is 3/16 if n = 3 or 3/(8n) otherwise. Then, I found the position of the new vertex based on the equation (3/8 * (A + B) + 1/8 * (C + D)). After that, I split every edge in the mesh and updated the surrounding neighbor's isNew attributes so that we only iterate over non-split edges. Then, I simply flipped the edges that are connected to one old and one new vertex. Finally, I copied over all the new vertex positions into their respective vertex attributes.
+
+			<div style="display: flex; flex-direction: column; align-items: center;">
+				<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					<tr>
+						<td style="text-align: center;">
+							<img src="images/c0.png" width="400px" />
+							<figcaption>Level 0</figcaption>
+						</td>
+						<td style="text-align: center;">
+							<img src="images/c1.png" width="400px" />
+							<figcaption>Level 1</figcaption>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: center;">
+							<img src="images/c2.png" width="400px" />
+							<figcaption>Level 2</figcaption>
+						</td>
+						<td style="text-align: center;">
+							<img src="images/c3.png" width="400px" />
+							<figcaption>Level 3</figcaption>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: center;">
+							<img src="images/p1.png" width="400px" />
+							<figcaption>Level 1 w/ prepended splits</figcaption>
+						</td>
+						<td style="text-align: center;">
+							<img src="images/p3.png" width="400px" />
+							<figcaption>Level 3 w/ prepended splits</figcaption>
+						</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</body>
 </html>
